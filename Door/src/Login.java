@@ -142,14 +142,14 @@ public class Login extends javax.swing.JFrame {
               
               if(ok == 1){
                  show.setForeground(Color.BLUE);
-                 show.setText("ç™»å…¥æˆåŠŸ");   
+                 show.setText("?™»?…¥??å??");   
                  new DoorJFrame().setVisible(true);
                  setVisible(false);
               }
                   
               else{
                   show.setForeground(Color.RED);
-                  show.setText("è¼¸å…¥æœ‰èª¤");
+                  show.setText("è¼¸å…¥??‰èª¤");
               }
                   
             con.close();

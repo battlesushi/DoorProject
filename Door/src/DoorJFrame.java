@@ -34,14 +34,14 @@ public class DoorJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        record.setText("��蕭嚙踝蕭嚙�");
+        record.setText("��蕭??��?�蕭??��");
         record.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recordActionPerformed(evt);
             }
         });
 
-        add.setText("嚙踐��蕭");
+        add.setText("??��?��?���?��");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addActionPerformed(evt);
@@ -50,8 +50,8 @@ public class DoorJFrame extends javax.swing.JFrame {
 
         cardNumber.getDocument().addDocumentListener(new DocumentListener() {
             String driver = "com.mysql.jdbc.Driver";
-            String url = "jdbc:mysql://localhost:3306/doorcontrol";
-            String user = "root", passwd = "0000";
+            String url = "jdbc:mysql://120.108.111.137:3306/105021043?characterEncoding=utf-8";
+            String user = "root", passwd = "h3041723";
             public void changedUpdate(DocumentEvent e) {
                 runPass();
             }
@@ -65,21 +65,22 @@ public class DoorJFrame extends javax.swing.JFrame {
             }
 
             public void runPass() {
-
+            	
                 try {
                     Class.forName(driver);
                     Connection con = DriverManager.getConnection(url, user, passwd);
                     Statement st = con.createStatement();
 
                     if (!cardNumber.getText().equals("")) {
-                        String s = " SELECT * FROM member";
+                        String s = " SELECT * FROM Member";
                         PreparedStatement ps = con.prepareStatement(s);
                         ResultSet rs = ps.executeQuery();
                         while (rs.next()) {
-                            if (cardNumber.getText().equals(rs.getString("card"))) {
+                        	
+                            if (cardNumber.getText().equals(rs.getString("ID"))) {
                                 ok = "1";
-                                rename = rs.getString("name");
-                                SwingUtilities.invokeLater(new Runnable()////������蕭��蕭蹎����蕭謘extField���蕭嚙�
+                                rename = rs.getString("Name");
+                                SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
                                 {
                                     public void run()
                                     {
@@ -87,29 +88,38 @@ public class DoorJFrame extends javax.swing.JFrame {
                                     }
                                 });
                                 showPass.setForeground(Color.BLUE);
-                                showPass.setText("嚙踝蕭�嚙踝����蕭謍堆蕭謍喉�蕭嚙踝�嚙踐嚙踐��蕭!!");
+                                showPass.setText("??��?�蕭��?��?��?�����??�蕭謍�?�蕭謍�?��?��?��??��?��??�??��?��?��?��?��??��蕭!!");
                                 TestClass tc = new TestClass();
                                 tc.run();
 //                                try{
 //                                	Thread.sleep(1000);
-//                                	showPass.setText("");//消除提示
+//                                	showPass.setText("");//消除??�示
 //                                }catch(Exception e){}
                                 break;
                             }
+                            
+                            
                         }
                         if (ok.equals("1")) {
-                            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+                            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                             Date date = new Date();
                             String strDate = sdFormat.format(date);
-                            String s2 = "INSERT INTO record (name,time) VALUES(?,?)";
+                            String s2 = "INSERT INTO Record (Name,Time,State) VALUES(?,?,'已註冊')";
                             PreparedStatement ps2 = con.prepareStatement(s2);
                             ps2.setString(1, rename);
                             ps2.setString(2, strDate);
                             ps2.executeUpdate();
+                            ok="3";
                         } else {
-                            cardNumber.setText("");
+                        	SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
+                                    {
+                                        public void run()
+                                        {
+                                            cardNumber.setText("");
+                                        }
+                                    });
                             showPass.setForeground(Color.RED);
-                            showPass.setText("嚙踝蕭��蕭�嚙踐偌����蕭��蝴���嚙踝蕭���頩�嚙踐嚙踝蕭蹎刻雓�蕭謕!!");
+                            showPass.setText("??��?�蕭��?��?����?��?��?��?��?�����蕭��蝴���??��?�蕭���??�?��?��??��?��??��?��?��?��?�蕭蹎刻?��??���?�蕭謕�?�!!");
                         }
                     }
                     con.close();
@@ -118,14 +128,14 @@ public class DoorJFrame extends javax.swing.JFrame {
             }
         });
 
-        goBack.setText("擗�蕭豯佇貝嚙踝嚙踝蕭蹓遴��");
+        goBack.setText("??��?��蕭豯�?��?��?��?�??��?�蕭蹓遴��");
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("���蕭���蕭���");
+        jLabel1.setText("���蕭��??��?��?�����?");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,20 +183,20 @@ public class DoorJFrame extends javax.swing.JFrame {
 
     private void recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recordActionPerformed
         String driver = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/doorcontrol";
-        String user = "root", passwd = "0000";
+        String url = "jdbc:mysql://120.108.111.137:3306/105021043?characterEncoding=utf-8";
+        String user = "root", passwd = "h3041723";
 
         try {
             Class.forName(driver);
             Connection con = DriverManager.getConnection(url, user, passwd);
 
             Statement st = con.createStatement();
-            String s = " SELECT * FROM record";
+            String s = " SELECT * FROM Record";
             PreparedStatement ps = con.prepareStatement(s);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
-                String time = rs.getString("time");
+                String name = rs.getString("Name");
+                String time = rs.getString("Time");
                 System.out.println("ID: " + name + "  Time: " + time);
             }
             System.out.println("-----------------------------------");

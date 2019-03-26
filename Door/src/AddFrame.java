@@ -12,13 +12,13 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 public class AddFrame extends JFrame {
-	private JLabel lb1 = new JLabel("è«‹è¼¸å…¥IDåŠå¡è™Ÿ");
+	private JLabel lb1 = new JLabel("è«‹è¼¸?…¥ID??Šå¡???");
 	private JLabel lb2 = new JLabel("ID");
-	private JLabel lb3 = new JLabel("å¡è™Ÿ");
+	private JLabel lb3 = new JLabel("?¡???");
 	private JTextField tf = new JTextField();
 	private JTextField tf2 = new JTextField();
-	private JButton bt1 = new JButton("ç¢ºèª");
-	private JButton bt2 = new JButton("å–æ¶ˆ");
+	private JButton bt1 = new JButton("ç¢ºè??");
+	private JButton bt2 = new JButton("??–æ??");
 	private Container cp;
 	private Panel pan = new Panel(new GridLayout(1, 3, 1, 1)); 
 	private Panel pan2 = new Panel(new GridLayout(2, 2, 1, 1));
@@ -34,21 +34,21 @@ public class AddFrame extends JFrame {
 		cp.setLayout(new BorderLayout(5, 5));
 		cp.add(pan, BorderLayout.SOUTH);
 		pan.add(bt1);
-		pan.add(bt2);// ç¢ºèªæŒ‰éˆ•çš„è¨­ç½®
+		pan.add(bt2);// ç¢ºè?æ?‰é?•ç?„è¨­ç½?
 		lb1.setFont(new Font(null, Font.BOLD, 24));
-		cp.add(lb1, BorderLayout.NORTH);// è¨­ç½®æ–°å¢è¦–çª—çš„æ¨™é¡Œ
+		cp.add(lb1, BorderLayout.NORTH);// è¨­ç½®?–°å¢è?–ç?—ç?„æ?™é??
 		cp.add(pan2, BorderLayout.CENTER);
 		pan2.add(lb2);
 		pan2.add(tf);
 		pan2.add(lb3);
-		pan2.add(tf2);// è¼¸å…¥idåŠå¯†ç¢¼çš„è¨­ç½®
+		pan2.add(tf2);// è¼¸å…¥id??Šå?†ç¢¼??„è¨­ç½?
 		bt2.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 			}
 
-		});// å–æ¶ˆæŒ‰éˆ•çš„åŠŸèƒ½
+		});// ??–æ?ˆæ?‰é?•ç?„å?Ÿèƒ½
                 
 		bt1.addActionListener(new ActionListener() {
 			@Override
@@ -60,7 +60,7 @@ public class AddFrame extends JFrame {
 				try {
                                     Class.forName(driver); 
                                     Connection con = DriverManager.getConnection(url, user, passwd);
-                                    //æ–°å¢èªæ³•
+                                    //?–°å¢è?æ??
                                     Statement st = con.createStatement();
                                     String n=tf.getText();
                                     String k=tf2.getText();
@@ -80,7 +80,7 @@ public class AddFrame extends JFrame {
                             }
 			}
 
-		});// å–å¾—idåŠå¯†ç¢¼
+		});// ??–å?—id??Šå?†ç¢¼
 	}
         public static void main(String args[]){
             AddFrame mf=new AddFrame();

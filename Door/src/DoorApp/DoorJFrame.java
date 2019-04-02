@@ -16,7 +16,7 @@ import javax.swing.event.DocumentListener;
 public class DoorJFrame extends javax.swing.JFrame {
 
     private String rename;
-    protected String ok = "3";
+    protected String ok = "0";
 
     public DoorJFrame() {
         initComponents();
@@ -34,14 +34,14 @@ public class DoorJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        record.setText("��蕭??��?�蕭??��");
+        record.setText("紀錄");
         record.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recordActionPerformed(evt);
             }
         });
 
-        add.setText("??��?��?���?��");
+        add.setText("新增");
         add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addActionPerformed(evt);
@@ -71,56 +71,88 @@ public class DoorJFrame extends javax.swing.JFrame {
                     Connection con = DriverManager.getConnection(url, user, passwd);
                     Statement st = con.createStatement();
 
-                    if (!cardNumber.getText().equals("")) {
-                        String s = " SELECT * FROM Member";
-                        PreparedStatement ps = con.prepareStatement(s);
-                        ResultSet rs = ps.executeQuery();
-                        while (rs.next()) {
-                        	
-                            if (cardNumber.getText().equals(rs.getString("ID"))) {
-                                ok = "1";
-                                rename = rs.getString("Name");
-                                SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
-                                {
-                                    public void run()
-                                    {
-                                        cardNumber.setText("");
-                                    }
-                                });
-                                showPass.setForeground(Color.BLUE);
-                                showPass.setText("??��?�蕭��?��?��?�����??�蕭謍�?�蕭謍�?��?��?��??��?��??�??��?��?��?��?��??��蕭!!");
-                                TestClass tc = new TestClass();
-                                tc.run();
-//                                try{
-//                                	Thread.sleep(1000);
-//                                	showPass.setText("");//消除??�示
-//                                }catch(Exception e){}
-                                break;
-                            }
-                            
-                            
-                        }
-                        if (ok.equals("1")) {
-                            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                            Date date = new Date();
-                            String strDate = sdFormat.format(date);
-                            String s2 = "INSERT INTO Record (Name,Time,State) VALUES(?,?,'已註冊')";
-                            PreparedStatement ps2 = con.prepareStatement(s2);
-                            ps2.setString(1, rename);
-                            ps2.setString(2, strDate);
-                            ps2.executeUpdate();
-                            ok="3";
-                        } else {
-                        	SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
+                    if (cardNumber.getText().length()>=4) { // 驗證碼=4  卡號>4
+                        if(cardNumber.getText().length()==4){//驗證碼
+                            String s = " SELECT * FROM VerificationCode";
+                            PreparedStatement ps = con.prepareStatement(s);
+                            ResultSet rs = ps.executeQuery();
+                            while (rs.next()) {
+
+                                if (cardNumber.getText().equals(rs.getString("Vcode"))) {
+                                    ok = "1";
+                                    rename = rs.getString("");
+                                    SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
                                     {
                                         public void run()
                                         {
                                             cardNumber.setText("");
                                         }
                                     });
+                                    showPass.setForeground(Color.BLUE);
+                                    showPass.setText("??��?�蕭��?��?��?�����??�蕭謍�?�蕭謍�?��?��?��??��?��??�??��?��?��?��?��??��蕭!!");
+                                    TestClass tc = new TestClass();
+                                    tc.run();
+                                    String s2 = "UPDATE `VerificationCode` SET `Vcode`=48763";
+                                    PreparedStatement ps2 = con.prepareStatement(s2);
+                                    ps2.executeUpdate();
+//                                try{
+//                                	Thread.sleep(1000);
+//                                	showPass.setText("");//消除??�示
+//                                }catch(Exception e){}
+                                    break;
+                                }
+                            }
+                        }
+                        else {//卡號>4
+                            String s = " SELECT * FROM Member";
+                            PreparedStatement ps = con.prepareStatement(s);
+                            ResultSet rs = ps.executeQuery();
+                            while (rs.next()) {
+
+                                if (cardNumber.getText().equals(rs.getString("ID"))) {
+                                    ok = "1";
+                                    rename = rs.getString("Name");
+                                    SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
+                                    {
+                                        public void run()
+                                        {
+                                            cardNumber.setText("");
+                                        }
+                                    });
+                                    showPass.setForeground(Color.BLUE);
+                                    showPass.setText("??��?�蕭��?��?��?�����??�蕭謍�?�蕭謍�?��?��?��??��?��??�??��?��?��?��?��??��蕭!!");
+                                    TestClass tc = new TestClass();
+                                    tc.run();
+//                                try{
+//                                	Thread.sleep(1000);
+//                                	showPass.setText("");//消除??�示
+//                                }catch(Exception e){}
+                                    break;
+                                }
+                            }
+                        }
+                        if (ok.equals("1")) {
+                            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                            Date date = new Date();
+                            String strDate = sdFormat.format(date);
+                            String s3 = "INSERT INTO Record (Name,Time,State) VALUES(?,?,'已註冊')";
+                            PreparedStatement ps3 = con.prepareStatement(s3);
+                            ps3.setString(1, rename);
+                            ps3.setString(2, strDate);
+                            ps3.executeUpdate();
+                            ok="0";
+                        } else {
+                            SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
+                            {
+                                public void run()
+                                {
+                                    cardNumber.setText("");
+                                }
+                            });
                             showPass.setForeground(Color.RED);
                             showPass.setText("??��?�蕭��?��?����?��?��?��?��?�����蕭��蝴���??��?�蕭���??�?��?��??��?��??��?��?��?��?�蕭蹎刻?��??���?�蕭謕�?�!!");
                         }
+
                     }
                     con.close();
                 } catch (Exception e) {
@@ -128,14 +160,14 @@ public class DoorJFrame extends javax.swing.JFrame {
             }
         });
 
-        goBack.setText("??��?��蕭豯�?��?��?��?�??��?�蕭蹓遴��");
+        goBack.setText("返回登入頁面");
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("���蕭��??��?��?�����?");
+        jLabel1.setText("管理用戶");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,7 +217,6 @@ public class DoorJFrame extends javax.swing.JFrame {
         String driver = "com.mysql.jdbc.Driver";
         String url = "jdbc:mysql://120.108.111.137:3306/105021043?characterEncoding=utf-8";
         String user = "root", passwd = "h3041723";
-
         try {
             Class.forName(driver);
             Connection con = DriverManager.getConnection(url, user, passwd);

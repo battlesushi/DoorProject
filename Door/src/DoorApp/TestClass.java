@@ -1,15 +1,9 @@
 package DoorApp;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
-import java.util.Enumeration;
-import DoorApp.SerialClass;
-import DoorApp.SerialClass;
-import java.io.IOException;
 
 public class TestClass
 {

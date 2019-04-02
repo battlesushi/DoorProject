@@ -14,9 +14,9 @@ public class DB_connect {
         
         Class.forName(driver); 
         Connection con = DriverManager.getConnection(url, user, passwd);
-        System.out.println("資�?�庫??線�?��??"); 
+        System.out.println("資料庫連線成功");
                 
-        //輸入語�??
+        //輸入語�??
                 
         con.close();
     }

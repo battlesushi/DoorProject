@@ -79,8 +79,8 @@ public class DoorJFrame extends javax.swing.JFrame {
                             while (rs.next()) {
 
                                 if (cardNumber.getText().equals(rs.getString("Vcode"))) {
-                                    ok = "1";
-                                    rename = rs.getString("");
+                                    ok = "2";
+                                    rename = rs.getString("LineName");
                                     SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
                                     {
                                         public void run()
@@ -131,7 +131,18 @@ public class DoorJFrame extends javax.swing.JFrame {
                                 }
                             }
                         }
-                        if (ok.equals("1")) {
+                        if (ok.equals("1")) {//1=卡號 2=驗證碼
+                            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                            Date date = new Date();
+                            String strDate = sdFormat.format(date);
+                            String s3 = "INSERT INTO Record (Name,Time,State) VALUES(?,?,'已註冊')";
+                            PreparedStatement ps3 = con.prepareStatement(s3);
+                            ps3.setString(1, rename);
+                            ps3.setString(2, strDate);
+                            ps3.executeUpdate();
+                            ok="0";
+                        }
+                        else if(ok.equals("2")){
                             SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                             Date date = new Date();
                             String strDate = sdFormat.format(date);

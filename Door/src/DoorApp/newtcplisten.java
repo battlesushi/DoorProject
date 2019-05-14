@@ -9,6 +9,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 //  ww w.  j a v a 2 s  . c  om
 public class newtcplisten {
+	protected static String tcpcardNumber="";
   public static void main(String[] args) throws Exception {
     ServerSocket serverSocket = new ServerSocket(8031, 100,
         InetAddress.getByName("192.168.1.100"));
@@ -36,6 +37,10 @@ public class newtcplisten {
 
       String inMsg = null;
       while ((inMsg = socketReader.readLine()) != null) {
+    	tcpcardNumber=inMsg;
+    	tcplistenToDB tcpTodb=new tcplistenToDB();
+    	tcpTodb.run();
+    	tcpTodb.tcpcardNumber="";
         System.out.println("Received from  client: " + inMsg);
 
         String outMsg = inMsg;

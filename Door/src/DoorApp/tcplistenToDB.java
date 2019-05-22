@@ -22,20 +22,17 @@ public class tcplistenToDB {
     	
     	try {
             Class.forName(driver);
-            System.out.println("1");
             Connection con = DriverManager.getConnection(url, user, passwd);
-            System.out.println("2");
             Statement st = con.createStatement();
-            System.out.println("3");
 
             
                 String s = " SELECT * FROM Member";
                 PreparedStatement ps = con.prepareStatement(s);
                 ResultSet rs = ps.executeQuery();
-//                System.out.println(tcpcardNumber.substring(32, 44));
+                System.out.println(tcpcardNumber.substring(32, 43));
                 while (rs.next()) {
-                	
-                    if (tcpcardNumber.substring(32, 44).equals(rs.getString("ID"))) {
+                    if (tcpcardNumber.substring(32, 43).equals(rs.getString("ID"))) {
+                    	System.out.println("yoooooooo");
                         ok = "1";
                         rename = rs.getString("Name");
                         SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
@@ -62,7 +59,7 @@ public class tcplistenToDB {
                     SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                     Date date = new Date();
                     String strDate = sdFormat.format(date);
-                    String s2 = "INSERT INTO Record (Name,Time,State) VALUES(?,?,'已註冊')";
+                    String s2 = "INSERT INTO Record (Name,Time,State,ID) VALUES(?,?,'已註冊','"+tcpcardNumber.substring(32, 43)+"')";
                     PreparedStatement ps2 = con.prepareStatement(s2);
                     ps2.setString(1, rename);
                     ps2.setString(2, strDate);

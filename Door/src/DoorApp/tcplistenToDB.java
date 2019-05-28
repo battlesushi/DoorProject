@@ -29,10 +29,8 @@ public class tcplistenToDB {
                 String s = " SELECT * FROM Member";
                 PreparedStatement ps = con.prepareStatement(s);
                 ResultSet rs = ps.executeQuery();
-                System.out.println(tcpcardNumber.substring(32, 43));
                 while (rs.next()) {
                     if (tcpcardNumber.substring(32, 43).equals(rs.getString("ID"))) {
-                    	System.out.println("yoooooooo");
                         ok = "1";
                         rename = rs.getString("Name");
                         SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��

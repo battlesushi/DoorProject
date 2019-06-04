@@ -37,9 +37,11 @@ public class tcplistenToDB {
                         {
                             public void run()
                             {
-//                                tcpcardNumber="";
+                                tcpcardNumber="";
                             }
                         });
+                        TestClass tc = new TestClass();
+                        tc.run();
 //                        showPass.setForeground(Color.BLUE);
 //                        showPass.setText("??��?�蕭��?��?��?�����??�蕭謍�?�蕭謍�?��?��?��??��?��??�??��?��?��?��?��??��蕭!!");
 //                        TestClass tc = new TestClass();
@@ -68,7 +70,7 @@ public class tcplistenToDB {
                             {
                                 public void run()
                                 {
-//                                    tcpcardNumber="";
+                                    tcpcardNumber="";
                                 }
                             });
 //                    showPass.setForeground(Color.RED);

@@ -5,7 +5,7 @@ import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 
-public class TestClass
+public class tcpTestClass
 {
 //public static BufferedReader input;
 public static OutputStream output;
@@ -27,8 +27,8 @@ public void run(){
 	obj.initialize();
 	//input = SerialClass.input;
 	//output = SerialClass.output;
-	DoorJFrame dfinput=new DoorJFrame();
-	String ok = dfinput.ok;
+	tcplistenToDB tcpinput=new tcplistenToDB();
+	String ok = tcpinput.ok;
 	
 	//InputStreamReader Ir = new InputStreamReader(System.in);
 	//BufferedReader Br = new BufferedReader(Ir);

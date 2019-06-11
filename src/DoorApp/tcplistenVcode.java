@@ -21,6 +21,7 @@ import javax.swing.event.DocumentListener;
 public class tcplistenVcode extends javax.swing.JFrame {
 
     private String rename;
+    private String lineUid;
     protected String ok = "0";
 
     public tcplistenVcode() {
@@ -73,14 +74,21 @@ public class tcplistenVcode extends javax.swing.JFrame {
 
                     if (vcode.getText().length()>=4) { // 驗證碼長度=4
                         if(vcode.getText().length()==4){//驗證碼
+                        	//Vcode 資料表
                             String s = " SELECT * FROM VerificationCode";
                             PreparedStatement ps = con.prepareStatement(s);
                             ResultSet rs = ps.executeQuery();
-                            while (rs.next()) {
-
-                                if (vcode.getText().equals(rs.getString("Vcode"))) {
+                            while(rs.next()) {
+                            	lineUid = rs.getString("LineUID");
+                            	if (vcode.getText().equals(rs.getString("Vcode"))) {
+                                	//Member 資料表
+                                    String idname = " SELECT Name FROM Member where LineUID='"+lineUid+"'";
+                                    PreparedStatement psidname = con.prepareStatement(idname);
+                                    ResultSet rsidname = psidname.executeQuery();
+                                    while(rsidname.next()) {
+                                    	rename = rsidname.getString("Name");
+                                    }
                                     ok = "6";
-                                    rename = rs.getString("LineName");
                                     SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
                                     {
                                         public void run()
@@ -99,12 +107,10 @@ public class tcplistenVcode extends javax.swing.JFrame {
 //                                	Thread.sleep(1000);
 //                                	showPass.setText("");//消除??�示
 //                                }catch(Exception e){}
-                                    break;
                                 }
-                            }
+                            }                            
                         }
                         if(ok.equals("6")){//6=驗證碼
-                        	System.out.print("yes!!");
                             SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
                             Date date = new Date();
                             String strDate = sdFormat.format(date);
@@ -114,7 +120,6 @@ public class tcplistenVcode extends javax.swing.JFrame {
                             ps3.setString(2, strDate);
                             ps3.executeUpdate();
                             ok="0";
-                            System.out.print("no!!");
                         } else {
                             SwingUtilities.invokeLater(new Runnable()////��?��?����?����?�����??��蹎��?�����??��謘extField���蕭??��
                             {
@@ -130,6 +135,7 @@ public class tcplistenVcode extends javax.swing.JFrame {
                     }
                     con.close();
                 } catch (Exception e) {
+                	System.out.println(e);
                 }
             }
         });

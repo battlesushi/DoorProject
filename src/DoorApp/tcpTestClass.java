@@ -29,7 +29,7 @@ public void run(){
 	//output = SerialClass.output;
 	tcplistenToDB tcpinput=new tcplistenToDB();
 	String ok = tcpinput.ok;
-	
+
 	//InputStreamReader Ir = new InputStreamReader(System.in);
 	//BufferedReader Br = new BufferedReader(Ir);
 	while (c==0)
@@ -39,7 +39,7 @@ public void run(){
 	switch(c)
 	{
 	case 1:
-	writeData("1");;
+	writeData("1");
 	break;
 
 	case 2:

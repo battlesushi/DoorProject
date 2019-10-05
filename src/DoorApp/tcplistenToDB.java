@@ -91,7 +91,6 @@ public class tcplistenToDB {
                         PreparedStatement ps2 = con.prepareStatement(s2);
                         ps2.setString(1, strDate);
                         ps2.executeUpdate();
-                        
             		}	
             	}                       
 
@@ -101,6 +100,6 @@ public class tcplistenToDB {
         } catch (Exception e) {
 //        	System.out.print(e);
         }
-    	
+        checkID = false;
     }
 }
